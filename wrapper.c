@@ -30,7 +30,6 @@ void handle_assignment_1() {
             "ASSIGNMENT_1/tests/csr/matrix_weighted_100.txt"
         };
         if (test_choice >= 1 && test_choice <= 4) {
-            // Added "csr" as the first argument matching driver's expected algorithm token
             snprintf(command, sizeof(command), ".\\ASSIGNMENT_1\\driver.exe csr %s", tests[test_choice - 1]);
             system(command);
         } else {
@@ -134,6 +133,54 @@ void handle_assignment_2() {
     }
 }
 
+void handle_assignment_3() {
+    int task_choice, test_choice;
+    char command[512];
+
+    printf("\n========================================\n");
+    printf("             ASSIGNMENT 3               \n");
+    printf("========================================\n");
+    printf("1. Kruskal's MST\n");
+    printf("2. Prim's MST\n");
+    printf("3. Compare Both (Kruskal & Prim)\n");
+    printf("0. Back to Main Menu\n");
+    printf("Select Option: ");
+    if (scanf("%d", &task_choice) != 1 || task_choice == 0) return;
+
+    const char *mode = "both";
+    if (task_choice == 1) mode = "kruskal";
+    else if (task_choice == 2) mode = "prim";
+    else if (task_choice == 3) mode = "both";
+    else {
+        printf("Invalid selection!\n");
+        return;
+    }
+
+    printf("\n--- MST Test Cases ---\n");
+    printf("1. mst_10.txt\n");
+    printf("2. mst_100.txt\n");
+    printf("3. mst_10000.txt\n");
+    printf("4. mst_50000.txt\n");
+    printf("5. mst_100000.txt\n");
+    printf("Select Test Case: ");
+    if (scanf("%d", &test_choice) != 1) return;
+
+    char *tests[] = {
+        "ASSIGNMENT_3/tests/mst/mst_10.txt",
+        "ASSIGNMENT_3/tests/mst/mst_100.txt",
+        "ASSIGNMENT_3/tests/mst/mst_10000.txt",
+        "ASSIGNMENT_3/tests/mst/mst_50000.txt",
+        "ASSIGNMENT_3/tests/mst/mst_100000.txt"
+    };
+
+    if (test_choice >= 1 && test_choice <= 5) {
+        snprintf(command, sizeof(command), ".\\ASSIGNMENT_3\\driver.exe %s %s", mode, tests[test_choice - 1]);
+        system(command);
+    } else {
+        printf("Invalid test selection!\n");
+    }
+}
+
 int main() {
     int choice;
     while (1) {
@@ -142,6 +189,7 @@ int main() {
         printf("========================================\n");
         printf("1. Access Assignment 1\n");
         printf("2. Access Assignment 2\n");
+        printf("3. Access Assignment 3\n");
         printf("0. Exit Program\n");
         printf("Enter Choice: ");
 
@@ -157,8 +205,11 @@ int main() {
             case 2:
                 handle_assignment_2();
                 break;
+            case 3:
+                handle_assignment_3();
+                break;
             default:
-                printf("Invalid choice! Please select 1, 2, or 0.\n");
+                printf("Invalid choice! Please select 1, 2, 3, or 0.\n");
         }
     }
     return 0;
