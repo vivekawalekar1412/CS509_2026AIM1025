@@ -1,7 +1,7 @@
 #ifndef MST_H
 #define MST_H
 
-#include "csr.h"
+#include "../../ASSIGNMENT_1/include/csr.h"
 
 typedef struct {
     int u;
